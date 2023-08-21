@@ -7,133 +7,155 @@
 
 int handle_format(char formart_char, va_list args);
 int buffer_print(char buffer);
-/**
- * _printf - imitates the simple actions of printf
- * @format: pointer to the string to be printed
- * Return: int
- */
+
+/*
+* _printf - prints
+* @format: pointer to the args
+* Description: prints
+* Return: int
+*/
+
 int _printf(const char *format, ...)
 {
-	int count = 0;
-	int i = 0;
-	int ind = 0;
-	char *buffer_pri;
-	int length;
+/*    int count = 0;*/
+int i = 0;
+/*
+* int ind = 0;
+* char *buffer_pri;
+*char chars[98];
+*/
+int length;
+va_list args;
 
-	va_list args;
+va_start(args, format);
 
-	va_start(args, format);
+length = strlen(format);
+/* printf("\n\tLength = %d\n", length);*/
+if (args == NULL)
+{return (-1);
+}
 
-	length = strlen(format);
-	if (args == NULL)
-	{return (-1);
-	}
-	while (i <= length)
-	{
-		if (format[i] != '%')
-		{
+/*printf("length = %d",length);*/
 
 
-			buffer_print(format[i]);
-			i++;
-		}
-		else if (format[i] == '%')
-		{
-			format[++i];
-			count += handle_format(format[i], args);
-		}
-	}
+while (i <= (length - 1))
+{
 
-	va_end(args);
+if (format[i] == '%')
+{
+i++;
+/*count += */
+handle_format(format[i], args);
+}
+else if (format[i] != '%')
+{
 
-	return (0);
+buffer_print(format[i]);
+}
+i++;
+}
+
+va_end(args);
+
+return (0);
 
 }
-/**
- * handle_format - handles the printing of fomart specifiers
- * @formart_char: char to determine data type
- * @args: arguements
- * Return: int
- */
+
+/*
+* handle_format - prints
+* @formart_char: pointer to the args
+* @args: args
+ * Description: prints
+* Return: int
+*/
 int handle_format(char formart_char, va_list args)
 {
-	int count = 0;
+int i, j;
+int num = 0;
+int temp = num;
+int count = 0;
+int digit;
+int digits;
 
-	switch (formart_char)
-	{
-		case 'c':
-			{
-				buffer_print(va_arg(args, int));
-				return (0);
-			}
-		case 's':
 
-			{
-				const char *str = va_arg(args, const char*);
-				int count = 0;
-
-				while (*str)
-				{
-					buffer_print(*str);
-					str++;
-					count++;
-				}
-				return (count);
-			}
-		case '%':
-			{
-				buffer_print('%');
-				return (1);
-			}
-		case 'd':
-		case 'i':
-			{
-				int num = va_arg(args, int);
-
-				if (num < 0)
-				{
-					buffer_print('-');
-					count++;
-					num = -num;
-				}
-				int temp = num;
-				int digits = (num == 0) ? 1 : 0;
-
-				while (temp > 0)
-				{
-					temp /= 10;
-					digits++;
-				}
-
-				temp = num;
-				for (int i = digits - 1; i >= 0; i--)
-				{
-					int divisor = 1;
-
-					for (int j = 0; j < i; j++)
-					{
-						divisor *= 10;
-					}
-					int digit = temp / divisor;
-
-					buffer_print('0' + digit);
-					count++;
-					temp -= digit * divisor;
-				}
-				break;
-
-			}
-		default:
-			return (0);
-	}
+switch (formart_char)
+{
+case 'c':
+{
+buffer_print(va_arg(args, int));
+return (0);
+break;
 }
-/**
- * buffer_print - prints the contents of the string
- * @buffer: char to be printed
- * Return: int
- */
+case 's':
+
+{
+const char *str = va_arg(args, const char*);
+int count = 0;
+while (*str)
+{
+buffer_print(*str);
+str++;
+/* count++;*/
+}
+return (count);
+break;
+}
+case '%':
+{
+buffer_print('%');
+return (1);
+}
+case 'd':
+case 'i':
+{
+num = va_arg(args, int);
+if (num < 0)
+{
+buffer_print('-');
+count++;
+num = -num;
+}
+digits = (num == 0) ? 1 : 0; /*Handle the case of num == 0*/
+while (temp > 0)
+{
+temp /= 10;
+digits++;
+}
+
+temp = num;
+for (i = digits - 1; i >= 0; i--)
+{
+int divisor = 1;
+for (j = 0; j < i; j++)
+{
+divisor *= 10;
+}
+digit = temp / divisor;
+buffer_print('0' + digit);
+count++;
+temp -= digit *divisor;
+}
+break;
+
+}
+default:
+return (0);
+}
+
+return (0);
+}
+
+/*
+* buffer_print - prints to output
+* @buffer: pointer to the args
+* Description: priints
+* Return: int
+*/
+
+
 int buffer_print(char buffer)
 {
-	return (write(1, &buffer, 1));
+return (write(1, &buffer, 1));
 }
+
 
