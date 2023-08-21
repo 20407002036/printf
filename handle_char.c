@@ -1,23 +1,10 @@
 #include "main.h"
-#include <stdio.h>
-#include <unistd.h>
 #include <stdarg.h>
 
-/**
-* _printf - imitates the simple actions of printf
-* @format: pointer to the string to be printed
-* Return: int
-*/
-
-int _printf(const char *format, ...)
+int handle_character(const char *formart, va_list args)
 {
 int count = 0;
-const char *ptr = format;
-
-va_list args;
-va_start(args, format);
-
-
+const char *ptr = formart;
 while (*ptr != '\0')
 {
 if (*ptr == '%')
@@ -44,13 +31,5 @@ count += buffer_print(*ptr);
 }
 ptr++;
 }
-
-va_end(args);
 return (count);
 }
-
-
-
-
-
-
