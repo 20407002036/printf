@@ -30,6 +30,9 @@ else if (*ptr == 'c')
 char c = va_arg(args, int);
 count += buffer_print(c);
 }
+else if (*ptr == '%')
+buffer_print('%');
+count +=1;
 }
 else
 {
