@@ -1,6 +1,12 @@
 #include "main.h"
 #include <stdarg.h>
 
+/**
+* handle_character - changes formart spefiers
+* @formart: string to run
+* @args: arguments
+* Return: int
+*/
 int handle_character(const char *formart, va_list args)
 {
 int count = 0;
