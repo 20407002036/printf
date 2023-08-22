@@ -40,7 +40,12 @@ break;
 case 'c':
 handle_char_spef(output_buffer, &count, &buffer_index, args);
 break;
-
+case 'd':
+case 'i':
+handle_int_spef(output_buffer, &count, &buffer_index, args, ptr);
+break;
+case 'b':
+handle_unsignedint(output_buffer, &count, &buffer_index, args);
 }
 
 }
