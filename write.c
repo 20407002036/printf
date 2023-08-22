@@ -10,5 +10,6 @@
 
 int buffer_print(const char *buffer, int length)
 {
-    return write(1, buffer, length);
+return (write(1, buffer, length));
 }
+
